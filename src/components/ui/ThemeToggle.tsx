@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+"use client";
+import React from 'react';
+import { useTheme } from 'next-themes';
+import { IoMoonSharp, IoSunnySharp } from 'react-icons/io5';
 
 const ThemeToggle: React.FC = () => {
-  const [isDark, setIsDark] = useState(false);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    // Here you would typically update the theme in your app's context or state management
-  };
+  const { theme, setTheme } = useTheme();
 
   return (
     <button
-      onClick={toggleTheme}
-      className="p-2 rounded-full bg-gray-200 dark:bg-gray-700"
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      className="p-2 rounded-full bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark"
+      aria-label="Toggle theme"
     >
-      {isDark ? '🌙' : '☀️'}
+      {theme === 'dark' ? <IoSunnySharp size={20} /> : <IoMoonSharp size={20} />}
     </button>
   );
 };

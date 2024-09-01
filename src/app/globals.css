@@ -3,31 +3,41 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --color-background-light: #f0f4f8;
+  --color-background-dark: #1a202c;
+  --color-text-light: #333333;
+  --color-text-dark: #e2e8f0;
+  --color-primary: #1a73e8;
+  --color-primary-light: #4dabf7;
+  --color-primary-dark: #0c47a1;
+  --color-secondary: #ff6f61;
+  --color-secondary-light: #ff8a80;
+  --color-secondary-dark: #c43e00;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply bg-background-light text-text-light dark:bg-background-dark dark:text-text-dark;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.dark body {
+  @apply bg-background-dark text-text-dark;
+}
+
+* {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
   }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  display: flex;
+  width: calc(300px * 6); /* Adjust based on the number of cards */
+  animation: scroll 20s linear infinite;
 }

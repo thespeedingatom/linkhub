@@ -1,10 +1,18 @@
+'use client';
 import { signIn } from 'next-auth/react';
 import Typography from '@/components/ui/Typography';
 import Button from '@/components/ui/Button';
+import { useState } from 'react';
 
 export default function Login() {
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
+    setIsLoading(true);
+
     const formData = new FormData(e.currentTarget);
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
@@ -15,11 +23,11 @@ export default function Login() {
       password,
     });
 
+    setIsLoading(false);
+
     if (result?.error) {
-      // Handle error
-      console.error(result.error);
+      setError(result.error);
     } else {
-      // Redirect to dashboard
       window.location.href = '/dashboard';
     }
   };
@@ -61,9 +69,13 @@ export default function Login() {
             </div>
           </div>
 
+          {error && (
+            <Typography variant="body" className="text-red-500">{error}</Typography>
+          )}
+
           <div>
-            <Button type="submit" className="w-full">
-              Sign in
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? 'Signing in...' : 'Sign in'}
             </Button>
           </div>
         </form>

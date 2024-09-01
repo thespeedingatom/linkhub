@@ -13,13 +13,13 @@ const UserProfile: React.FC<UserProfileProps> = ({ params }) => {
   const { username } = params;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark">
       <Navbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <Typography variant="h1" className="mb-6">
+        <Typography variant="h1" className="mb-6 text-text-light dark:text-text-dark">
           {username}'s Public Profile
         </Typography>
-        <Typography variant="body">
+        <Typography variant="body" className="text-text-light dark:text-text-dark">
           This is the public profile page for {username}. It displays their shared links and information.
         </Typography>
         {/* Add components to display user's public links and information */}
